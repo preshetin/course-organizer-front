@@ -5,8 +5,8 @@ import NotFound from "./containers/NotFound";
 import AppliedRoute from './components/AppliedRoute'
 import Login from './containers/Login'
 import Signup from "./containers/Signup";
-import NewNote from './containers/NewNote'
-import Notes from "./containers/Notes";
+import NewCourse from './containers/NewCourse'
+import Courses from "./containers/Courses";
 import Settings from "./containers/Settings";
 import AuthenticatedRoute from './components/AuthenticatedRoute'
 import UnauthenticatedRoute from "./components/UnauthenticatedRoute";
@@ -18,8 +18,8 @@ const Routes = ({ appProps }) => {
       <AppliedRoute appProps={appProps} path="/" exact component={Home} />
       <UnauthenticatedRoute appProps={appProps} path="/login" exact component={Login} />
       <UnauthenticatedRoute path="/signup" exact component={Signup} appProps={appProps} />
-      <AuthenticatedRoute path="/notes/new" exact component={NewNote} appProps={appProps} />
-      <AuthenticatedRoute path="/notes/:id" exact component={Notes} appProps={appProps} />
+      <AuthenticatedRoute path="/courses/new" exact component={NewCourse} appProps={appProps} />
+      <AuthenticatedRoute path="/courses/:id" exact component={Courses} appProps={appProps} />
       <AuthenticatedRoute path="/settings" exact component={Settings} appProps={appProps} />
 
       { /* Finally, catch all unmatched routes */ }

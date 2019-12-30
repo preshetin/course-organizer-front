@@ -5,7 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import "./Home.css";
 
 export default function Home(props) {
-  const [notes, setNotes] = useState([]);
+  const [courses, setCourses] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -15,8 +15,8 @@ export default function Home(props) {
       }
   
       try {
-        const notes = await loadNotes();
-        setNotes(notes);
+        const courses = await loadCourses();
+        setCourses(courses);
       } catch (e) {
         alert(e);
       }
@@ -27,23 +27,23 @@ export default function Home(props) {
     onLoad();
   }, [props.isAuthenticated]);
   
-  function loadNotes() {
-    return API.get("notes", "/notes");
+  function loadCourses() {
+    return API.get("courses", "/courses");
   }
 
-  function renderNotesList(notes) {
-    return [{}].concat(notes).map((note, i) =>
+  function renderCoursesList(courses) {
+    return [{}].concat(courses).map((course, i) =>
       i !== 0 ? (
-        <LinkContainer key={note.noteId} to={`/notes/${note.noteId}`}>
-          <ListGroupItem header={note.content.trim().split("\n")[0]}>
-            {"Created: " + new Date(note.createdAt).toLocaleString()}
+        <LinkContainer key={course.courseId} to={`/courses/${course.courseId}`}>
+          <ListGroupItem header={ course.description ? course.description.trim().split("\n")[0] : ''}>
+            {"Created: " + new Date(course.createdAt).toLocaleString()}
           </ListGroupItem>
         </LinkContainer>
       ) : (
-        <LinkContainer key="new" to="/notes/new">
+        <LinkContainer key="new" to="/courses/new">
           <ListGroupItem>
             <h4>
-              <b>{"\uFF0B"}</b> Create a new note
+              <b>{"\uFF0B"}</b> Create a new course
             </h4>
           </ListGroupItem>
         </LinkContainer>
@@ -54,18 +54,18 @@ export default function Home(props) {
   function renderLander() {
     return (
       <div className="lander">
-        <h1>Scratch</h1>
-        <p>A simple note taking app</p>
+        <h1>Course Organizer</h1>
+        <p>A humble helper to manage applications for the course or event.</p>
       </div>
     );
   }
 
-  function renderNotes() {
+  function renderCourses() {
     return (
-      <div className="notes">
-        <PageHeader>Your Notes</PageHeader>
+      <div className="courses">
+        <PageHeader>Your Courses</PageHeader>
         <ListGroup>
-          {!isLoading && renderNotesList(notes)}
+          {!isLoading && renderCoursesList(courses)}
         </ListGroup>
       </div>
     );
@@ -73,7 +73,7 @@ export default function Home(props) {
 
   return (
     <div className="Home">
-      {props.isAuthenticated ? renderNotes() : renderLander()}
+      {props.isAuthenticated ? renderCourses() : renderLander()}
     </div>
   );
 }
