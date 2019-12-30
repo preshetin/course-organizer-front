@@ -96,6 +96,7 @@ export default function Courses(props) {
           <FormGroup controlId="startDate">
             <FormControl
               value={startDate}
+              bsSize='large'
               placeholder="Start Date"
               onChange={e => setStartDate(e.target.value)}
             />
